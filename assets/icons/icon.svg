@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="日语沟通">
+  <rect width="512" height="512" rx="112" fill="#f8f7f3"/>
+  <circle cx="256" cy="256" r="164" fill="#d94343"/>
+  <path d="M164 188h184c30 0 54 24 54 54v34c0 30-24 54-54 54h-47l-57 48v-48h-80c-30 0-54-24-54-54v-34c0-30 24-54 54-54z" fill="#fff"/>
+  <path d="M184 247h144M184 289h90" stroke="#24302f" stroke-width="22" stroke-linecap="round"/>
+</svg>

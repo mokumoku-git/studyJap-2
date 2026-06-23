@@ -1,0 +1,69 @@
+.prompt {
+  display: grid;
+  gap: 12px;
+}
+
+.prompt-title {
+  margin: 0;
+  font-size: 22px;
+  line-height: 1.32;
+  letter-spacing: 0;
+}
+
+.prompt-copy {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.training-note {
+  display: grid;
+  gap: 8px;
+}
+
+.history-list {
+  display: grid;
+  gap: 10px;
+}
+
+.history-item {
+  width: 100%;
+  display: grid;
+  gap: 8px;
+  text-align: left;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 14px;
+  color: var(--ink);
+}
+
+.history-date {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.history-title {
+  font-weight: 760;
+  line-height: 1.35;
+}
+
+.history-excerpt {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.status-line {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+@media (min-width: 720px) {
+  .app-shell {
+    padding-top: 34px;
+    padding-bottom: 34px;
+  }
+}

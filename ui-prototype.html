@@ -1,0 +1,668 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>在日华人日语沟通训练器 UI 原型</title>
+    <style>
+      :root {
+        --bg: #f8f5ee;
+        --paper: #ffffff;
+        --ink: #1f2928;
+        --muted: #6f7774;
+        --line: rgba(31, 41, 40, 0.1);
+        --red: #d95c4a;
+        --red-soft: #f6e5e1;
+        --green: #6f9b7a;
+        --green-soft: #e8f0ea;
+        --cream: #f1e8d8;
+        --shadow: 0 16px 36px rgba(31, 41, 40, 0.08);
+        --sakura-pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220'%3E%3Cg fill='none' opacity='.72'%3E%3Cg transform='translate(36 34) rotate(-18)'%3E%3Cpath d='M0 0c8-16 21-16 29 0C21 16 8 16 0 0z' fill='%23f7cbd2'/%3E%3Cpath d='M0 0c16-8 27-1 24 17C7 21-2 13 0 0z' fill='%23f4b9c5'/%3E%3Cpath d='M0 0c17 6 20 19 7 31C-7 19-6 7 0 0z' fill='%23f8d6dc'/%3E%3Cpath d='M0 0c-6 17-19 20-31 7C-19-7-7-6 0 0z' fill='%23f3bdc8'/%3E%3Ccircle cx='0' cy='0' r='3' fill='%23d98a93'/%3E%3C/g%3E%3Cg transform='translate(175 78) scale(.62) rotate(22)'%3E%3Cpath d='M0 0c8-16 21-16 29 0C21 16 8 16 0 0z' fill='%23f7cbd2'/%3E%3Cpath d='M0 0c16-8 27-1 24 17C7 21-2 13 0 0z' fill='%23f4b9c5'/%3E%3Cpath d='M0 0c17 6 20 19 7 31C-7 19-6 7 0 0z' fill='%23f8d6dc'/%3E%3Cpath d='M0 0c-6 17-19 20-31 7C-19-7-7-6 0 0z' fill='%23f3bdc8'/%3E%3Ccircle cx='0' cy='0' r='3' fill='%23d98a93'/%3E%3C/g%3E%3Cg transform='translate(95 176) scale(.48) rotate(-8)'%3E%3Cpath d='M0 0c8-16 21-16 29 0C21 16 8 16 0 0z' fill='%23f7cbd2'/%3E%3Cpath d='M0 0c16-8 27-1 24 17C7 21-2 13 0 0z' fill='%23f4b9c5'/%3E%3Cpath d='M0 0c17 6 20 19 7 31C-7 19-6 7 0 0z' fill='%23f8d6dc'/%3E%3Cpath d='M0 0c-6 17-19 20-31 7C-19-7-7-6 0 0z' fill='%23f3bdc8'/%3E%3Ccircle cx='0' cy='0' r='3' fill='%23d98a93'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        font-family: "Hiragino Maru Gothic ProN", "Yu Gothic UI", "M PLUS Rounded 1c",
+          "Arial Rounded MT Bold", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          "Noto Sans CJK SC", "Noto Sans JP", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          var(--sakura-pattern),
+          radial-gradient(circle at 20% 0%, rgba(217, 92, 74, 0.09), transparent 28%),
+          radial-gradient(circle at 90% 18%, rgba(111, 155, 122, 0.1), transparent 26%),
+          var(--bg);
+        background-size: 220px 220px, auto, auto, auto;
+        color: var(--ink);
+      }
+
+      .stage {
+        min-height: 100vh;
+        display: grid;
+        place-items: start center;
+        padding: 24px;
+      }
+
+      .prototype-label {
+        margin: 0 0 16px;
+        color: var(--muted);
+        font-size: 14px;
+        text-align: center;
+      }
+
+      .phone {
+        width: 393px;
+        min-height: 852px;
+        border-radius: 46px;
+        padding: 14px;
+        background: #202523;
+        box-shadow: 0 30px 80px rgba(31, 41, 40, 0.22);
+      }
+
+      .screen {
+        position: relative;
+        overflow: hidden;
+        min-height: 824px;
+        border-radius: 34px;
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.58), transparent 220px),
+          var(--sakura-pattern),
+          var(--bg);
+        background-size: auto, 210px 210px, auto;
+        padding: 18px;
+      }
+
+      .status {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 22px;
+        margin-bottom: 10px;
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .signal {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        color: var(--ink);
+      }
+
+      .pill {
+        position: absolute;
+        top: 14px;
+        left: 50%;
+        width: 84px;
+        height: 26px;
+        border-radius: 999px;
+        transform: translateX(-50%);
+        background: #202523;
+      }
+
+      .app {
+        display: grid;
+        gap: 14px;
+      }
+
+      .top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .brand-mark {
+        display: grid;
+        place-items: center;
+        width: 38px;
+        height: 38px;
+        border-radius: 14px;
+        background: var(--paper);
+        box-shadow: var(--shadow);
+      }
+
+      .brand h1 {
+        margin: 0;
+        font-size: 16px;
+        letter-spacing: 0;
+      }
+
+      .brand p {
+        margin: 1px 0 0;
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .icon-button {
+        display: grid;
+        place-items: center;
+        width: 42px;
+        height: 42px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.72);
+        color: var(--ink);
+      }
+
+      .hero {
+        position: relative;
+        display: grid;
+        grid-template-columns: 1fr 112px;
+        gap: 8px;
+        align-items: end;
+        padding: 20px 16px 18px;
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.72);
+        box-shadow: var(--shadow);
+      }
+
+      .hero h2 {
+        margin: 0;
+        font-size: 30px;
+        line-height: 1.12;
+        letter-spacing: 0;
+      }
+
+      .hero p {
+        margin: 10px 0 0;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.48;
+      }
+
+      .mascot-wrap {
+        display: grid;
+        justify-items: center;
+        gap: 2px;
+      }
+
+      .bubble {
+        position: relative;
+        max-width: 100px;
+        padding: 7px 9px;
+        border-radius: 14px;
+        background: var(--cream);
+        color: #6b5035;
+        font-size: 11px;
+        font-weight: 700;
+        line-height: 1.35;
+      }
+
+      .bubble:after {
+        content: "";
+        position: absolute;
+        bottom: -6px;
+        left: 24px;
+        border: 7px solid transparent;
+        border-top-color: var(--cream);
+        border-bottom: 0;
+      }
+
+      .mascot {
+        width: 86px;
+        height: 88px;
+      }
+
+      .mascot-img {
+        width: 92px;
+        height: 92px;
+        border: 3px solid rgba(255, 255, 255, 0.9);
+        border-radius: 26px;
+        object-fit: cover;
+        object-position: center;
+        box-shadow: 0 14px 26px rgba(31, 41, 40, 0.14);
+      }
+
+      .question-card,
+      .panel,
+      .result-card,
+      .encourage {
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: var(--paper);
+        box-shadow: var(--shadow);
+      }
+
+      .question-card {
+        padding: 16px;
+      }
+
+      .eyebrow {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        margin: 0 0 10px;
+        color: var(--green);
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      .question-card h3 {
+        margin: 0;
+        font-size: 21px;
+        line-height: 1.32;
+        letter-spacing: 0;
+      }
+
+      .question-card p {
+        margin: 9px 0 0;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.55;
+      }
+
+      .meta-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 9px;
+      }
+
+      .meta {
+        min-height: 58px;
+        padding: 11px;
+        border: 1px solid var(--line);
+        border-radius: 15px;
+        background: rgba(255, 255, 255, 0.76);
+      }
+
+      .meta span {
+        display: block;
+      }
+
+      .meta-label {
+        color: var(--muted);
+        font-size: 11px;
+        margin-bottom: 5px;
+      }
+
+      .meta-value {
+        font-size: 14px;
+        font-weight: 760;
+        line-height: 1.35;
+      }
+
+      .panel {
+        padding: 14px;
+      }
+
+      .panel-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 0 0 10px;
+        font-size: 15px;
+      }
+
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        min-height: 32px;
+        padding: 0 11px;
+        border-radius: 999px;
+        background: var(--red-soft);
+        color: #8b362d;
+        font-size: 13px;
+        font-weight: 760;
+      }
+
+      .patterns {
+        margin: 0;
+        padding-left: 18px;
+        color: var(--ink);
+        font-size: 14px;
+        line-height: 1.7;
+      }
+
+      .input-preview {
+        min-height: 92px;
+        padding: 13px;
+        border: 1px solid rgba(217, 92, 74, 0.24);
+        border-radius: 16px;
+        background: #fffdf9;
+        color: #57615f;
+        font-size: 14px;
+        line-height: 1.55;
+      }
+
+      .primary {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        height: 54px;
+        border-radius: 16px;
+        background: var(--red);
+        color: white;
+        font-size: 16px;
+        font-weight: 800;
+        box-shadow: 0 14px 24px rgba(217, 92, 74, 0.24);
+      }
+
+      .secondary-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .secondary {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        height: 48px;
+        border: 1px solid var(--line);
+        border-radius: 15px;
+        background: rgba(255, 255, 255, 0.72);
+        color: var(--ink);
+        font-size: 14px;
+        font-weight: 760;
+      }
+
+      .result-card {
+        padding: 14px;
+      }
+
+      .result-card.green {
+        background: var(--green-soft);
+      }
+
+      .result-card.cream {
+        background: var(--cream);
+      }
+
+      .result-card h4 {
+        margin: 0 0 7px;
+        color: var(--muted);
+        font-size: 12px;
+        letter-spacing: 0;
+      }
+
+      .result-card p {
+        margin: 0;
+        font-size: 14px;
+        line-height: 1.55;
+      }
+
+      .encourage {
+        display: grid;
+        grid-template-columns: 42px 1fr;
+        gap: 10px;
+        align-items: center;
+        padding: 12px;
+        background: #fffdf8;
+      }
+
+      .encourage p {
+        margin: 0;
+        color: #5f6258;
+        font-size: 13px;
+        line-height: 1.45;
+        font-weight: 650;
+      }
+
+      .mascot-thumb {
+        width: 42px;
+        height: 42px;
+        border: 2px solid rgba(255, 255, 255, 0.95);
+        border-radius: 15px;
+        object-fit: cover;
+        object-position: center;
+        box-shadow: 0 8px 16px rgba(31, 41, 40, 0.1);
+      }
+
+      .tabs {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 7px;
+        margin-top: 2px;
+        padding: 8px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.72);
+      }
+
+      .tab {
+        display: grid;
+        justify-items: center;
+        gap: 3px;
+        color: var(--muted);
+        font-size: 10px;
+        font-weight: 700;
+      }
+
+      .tab.active {
+        color: var(--red);
+      }
+
+      svg {
+        display: block;
+      }
+
+      @media (max-width: 440px) {
+        .stage {
+          padding: 0;
+        }
+
+        .prototype-label {
+          display: none;
+        }
+
+        .phone {
+          width: 100%;
+          min-height: 100vh;
+          border-radius: 0;
+          padding: 0;
+          background: transparent;
+          box-shadow: none;
+        }
+
+        .screen {
+          min-height: 100vh;
+          border-radius: 0;
+          padding: 18px;
+        }
+
+        .pill {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="stage">
+      <div>
+        <p class="prototype-label">iPhone 16 高保真静态 UI 原型 / 仅用于视觉确认</p>
+        <section class="phone" aria-label="iPhone 16 UI 原型">
+          <div class="screen">
+            <div class="pill"></div>
+            <div class="status">
+              <span>9:41</span>
+              <span class="signal">
+                <svg width="18" height="12" viewBox="0 0 18 12" aria-hidden="true">
+                  <rect x="1" y="7" width="3" height="4" rx="1" fill="currentColor"/>
+                  <rect x="6" y="5" width="3" height="6" rx="1" fill="currentColor"/>
+                  <rect x="11" y="2" width="3" height="9" rx="1" fill="currentColor"/>
+                </svg>
+                <svg width="21" height="12" viewBox="0 0 21 12" aria-hidden="true">
+                  <rect x="1" y="2" width="17" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                  <rect x="3" y="4" width="12" height="4" rx="1" fill="currentColor"/>
+                  <path d="M19 5v2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </span>
+            </div>
+
+            <div class="app">
+              <header class="top">
+                <div class="brand">
+                  <div class="brand-mark">
+                    <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M5 6.5h14M5 12h10M5 17.5h7" stroke="#d95c4a" stroke-width="2.2" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <h1>日语沟通训练</h1>
+                    <p>日本式表达练习</p>
+                  </div>
+                </div>
+                <div class="icon-button" aria-hidden="true">
+                  <svg width="21" height="21" viewBox="0 0 24 24">
+                    <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"/>
+                  </svg>
+                </div>
+              </header>
+
+              <section class="hero">
+                <div>
+                  <h2>今天练一句就够了</h2>
+                  <p>把容易变直接的说法，换成更自然、更安心的日本式表达。</p>
+                </div>
+                <div class="mascot-wrap" aria-label="吉祥物位置">
+                  <div class="bubble">いっしょに<br>やってみよ</div>
+                  <img class="mascot-img" src="assets/images/mascot.jpg" alt="吉祥物">
+                </div>
+              </section>
+
+              <section class="question-card">
+                <p class="eyebrow">
+                  <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 3l2.6 5.7 6.2.7-4.6 4.2 1.3 6.1L12 16.6 6.5 19.7l1.3-6.1-4.6-4.2 6.2-.7L12 3z" fill="currentColor"/>
+                  </svg>
+                  今日训练
+                </p>
+                <h3>向领导申请项目延期</h3>
+                <p>项目快到截止日期了，但你觉得按当前进度很难完成。你想向领导申请延期，应该怎么说？</p>
+              </section>
+
+              <section class="meta-grid" aria-label="题目信息">
+                <div class="meta">
+                  <span class="meta-label">场景</span>
+                  <span class="meta-value">工作</span>
+                </div>
+                <div class="meta">
+                  <span class="meta-label">身份</span>
+                  <span class="meta-value">部下 → 上司</span>
+                </div>
+                <div class="meta">
+                  <span class="meta-label">情绪</span>
+                  <span class="meta-value">紧张 / 抱歉</span>
+                </div>
+                <div class="meta">
+                  <span class="meta-label">目的</span>
+                  <span class="meta-value">延期申请</span>
+                </div>
+              </section>
+
+              <section class="panel">
+                <h3 class="panel-title">
+                  <span>关键词</span>
+                  <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20 7l-8 8-4-4-4 4" fill="none" stroke="#6f9b7a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </h3>
+                <div class="chips">
+                  <span class="chip">納期</span>
+                  <span class="chip">スケジュール</span>
+                  <span class="chip">調整</span>
+                </div>
+              </section>
+
+              <section class="panel">
+                <h3 class="panel-title">句型提示</h3>
+                <ul class="patterns">
+                  <li>申し訳ありませんが〜</li>
+                  <li>〜についてご相談があります</li>
+                  <li>〜させていただきたいです</li>
+                </ul>
+              </section>
+
+              <section class="panel">
+                <h3 class="panel-title">你的日语</h3>
+                <div class="input-preview">この納期は無理です。延期したいです。</div>
+              </section>
+
+              <div class="primary">
+                <svg width="19" height="19" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 3v3M12 18v3M4.6 5.6l2.1 2.1M17.3 16.3l2.1 2.1M3 12h3M18 12h3M5.6 19.4l2.1-2.1M16.3 7.7l2.1-2.1" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/>
+                </svg>
+                分析表达
+              </div>
+
+              <section class="result-card green">
+                <h4>更安全的表达</h4>
+                <p>申し訳ありませんが、現在のスケジュールですと納期に間に合わせるのが少し難しい状況です。</p>
+              </section>
+
+              <section class="result-card cream">
+                <h4>为什么这样说</h4>
+                <p>「無理です」容易显得直接否定。先表达歉意，再把话题放到“相談”上，会更容易被对方接住。</p>
+              </section>
+
+              <section class="encourage">
+                <img class="mascot-thumb" src="assets/images/mascot.jpg" alt="">
+                <p>今天也把一句话变温柔了。慢慢来，这样就很好。</p>
+              </section>
+
+              <div class="secondary-row">
+                <div class="secondary">
+                  <svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 12a8 8 0 0 1 13.7-5.6L20 8.7M20 4v4.7h-4.7M20 12a8 8 0 0 1-13.7 5.6L4 15.3M4 20v-4.7h4.7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  再练一题
+                </div>
+                <div class="secondary">
+                  <svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M7 4h10a2 2 0 0 1 2 2v14l-7-4-7 4V6a2 2 0 0 1 2-2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                  </svg>
+                  查看历史
+                </div>
+              </div>
+
+              <nav class="tabs" aria-label="底部导航视觉示例">
+                <div class="tab active">
+                  <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 11l8-7 8 7v9H4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                  </svg>
+                  首页
+                </div>
+                <div class="tab">
+                  <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M5 5h14v14H5zM8 9h8M8 13h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                  练习
+                </div>
+                <div class="tab">
+                  <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 19V5M4 19h16M8 16v-5M12 16V8M16 16v-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                  结果
+                </div>
+                <div class="tab">
+                  <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M6 5h12M6 12h12M6 19h8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                  历史
+                </div>
+              </nav>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>
